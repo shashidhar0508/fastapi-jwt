@@ -4,7 +4,6 @@ from app.model import PostSchema, UserSchema, UserLoginSchema
 from app.auth.auth_bearer import JWTBearer
 from app.auth.auth_handler import signJWT
 
-
 posts = [
     {
         "id": 1,
@@ -36,7 +35,7 @@ async def read_root() -> dict:
 
 @app.get("/posts", tags=["posts"])
 async def get_posts() -> dict:
-    return { "data": posts }
+    return {"data": posts}
 
 
 @app.get("/posts/{id}", tags=["posts"])
@@ -64,7 +63,7 @@ async def add_post(post: PostSchema) -> dict:
 
 @app.post("/user/signup", tags=["user"])
 async def create_user(user: UserSchema = Body(...)):
-    users.append(user) # replace with db call, making sure to hash the password first
+    users.append(user)  # replace with db call, making sure to hash the password first
     return signJWT(user.email)
 
 

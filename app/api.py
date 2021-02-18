@@ -3,6 +3,8 @@ from fastapi import FastAPI, Body, Depends
 from app.model import PostSchema, UserSchema, UserLoginSchema
 from app.auth.auth_bearer import JWTBearer
 from app.auth.auth_handler import signJWT
+from fastapi.middleware.cors import CORSMiddleware
+
 
 posts = [
     {
@@ -15,6 +17,20 @@ posts = [
 users = []
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:8080",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # helpers
